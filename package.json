@@ -1,0 +1,26 @@
+{
+  "name": "challenge10",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ahneb/Team-Profile-Generator.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ahneb/Team-Profile-Generator/issues"
+  },
+  "homepage": "https://github.com/Ahneb/Team-Profile-Generator#readme",
+  "dependencies": {
+    "fs": "^0.0.1-security",
+    "inquirer": "^9.1.4",
+    "jest": "^29.4.2",
+    "node": "^19.6.0",
+    "nodemon": "^2.0.20"
+  }
+}

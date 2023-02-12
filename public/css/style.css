@@ -1,0 +1,73 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 10vh;
+  background-color: rgb(252, 74, 74);
+  color: rgb(255, 255, 255);
+  font-size: 2.5rem;
+}
+
+nav div {
+  display: flex;
+  justify-content: center;
+}
+
+body {
+  width: 100%;
+  min-height: 90vh;
+  background-color: rgb(255, 255, 255);
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 3rem;
+  flex-wrap: wrap;
+  margin: 5rem 25vw;
+}
+
+.container .card {
+  flex: 1 0 10rem;
+  background-color: rgb(241, 241, 241);
+  box-shadow: 3px 3px 7px rgb(66, 66, 66);
+}
+
+.name {
+  background-color: rgb(65, 125, 253);
+  padding: 15px;
+}
+
+.name h1 {
+  font-size: 1.5em;
+  color: white;
+}
+
+.name h2 {
+  font-size: 1.3em;
+  color: white;
+}
+
+.info {
+  margin: 40px 20px;
+  background-color: white;
+}
+
+.info div{
+  padding: 15px;
+  border: 1px solid rgb(218, 218, 218);
+}
