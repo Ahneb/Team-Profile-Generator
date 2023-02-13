@@ -74,8 +74,6 @@ describe('Employee', () => {
       //code under test
       const result = newEmp.getRole();
 
-      console.log(result);
-
       //verify
       expect(result).toBe(expectedRole);
     })

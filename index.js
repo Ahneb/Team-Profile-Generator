@@ -1,6 +1,15 @@
-const Employee = require('./lib/Employee');
+const inquirer = require('inquirer');
+const fs = require('fs');
 
-let newEmp = new Employee();
-
-console.log(newEmp);
-
+const questions = [
+  {
+    type: 'input',
+    name: 'Email',
+    message: 'Enter your email address: ',
+  },
+  {
+    type: 'input',
+    name: 'Email',
+    message: 'Enter your email address: ',
+  },
+]
