@@ -1,5 +1,9 @@
 const inquirer = require('inquirer');
+const path = require('path');
 const fs = require('fs');
+const Manager = require('./lib/Manager');
+const Engineer = require('./lib/Engineer');
+const Intern = require('./lib/Intern');
 
 
 const options = [
@@ -33,25 +37,26 @@ const questions = [
       {value: 'Intern', name: 'Intern'},
     ]
   },
-  // {
-  //   type: 'input',
-  //   name: 'ID',
-  //   message: 'Enter Employee ID: ',
-  // },
-  // {
-  //   type: 'input',
-  //   name: 'Name',
-  //   message: 'Enter Employee Email: ',
-  // },
-  // {
-  //   type: 'input',
-  //   name: 'Name',
-  //   message: 'Enter Additional Info: ',
-  // },
+  {
+    type: 'input',
+    name: 'ID',
+    message: 'Enter Employee ID: ',
+  },
+  {
+    type: 'input',
+    name: 'Email',
+    message: 'Enter Employee Email: ',
+  },
+  {
+    type: 'input',
+    name: 'Info',
+    message: 'Enter Additional Info: ',
+  },
 ]
 
 let responses = {};
 let allWorkers = [];
+let newhtml = '';
 
 function chooseOption() {
   inquirer.prompt(options).then(answer => {
@@ -59,7 +64,8 @@ function chooseOption() {
     if (chosenOption === 'add') {
       addEmployee();
     } else if (chosenOption === 'create') {
-      writeToDb();
+      fs.writeFileSync('./db/db.json', JSON.stringify(allWorkers));
+      // console.log(newhtml);
       replaceTemplate();
 
     } else {
@@ -78,8 +84,27 @@ function promptQuestions(index) {
   let currentQuestion = questions[index];
   //check if all questions have been asked
   if (index >= questions.length) {
-    allWorkers.push(Object.assign({}, responses));
+    // console.log(responses);
+
+    if (responses.Position === "Manager") {
+      let newMan = new Manager(responses.Name, responses.ID, responses.Email, responses.Info);
+      // console.log(newMan);
+      allWorkers.push(newMan);
+      writeHTML(responses);
+    } else if (responses.Position === "Engineer") {
+      let newEng = new Engineer(responses.Name, responses.ID, responses.Email, responses.Info);
+      // console.log(newEng);
+      allWorkers.push(newEng);
+      writeHTML(responses);
+    } else if (responses.Position === "Intern") {
+      let newInt = new Intern(responses.Name, responses.ID, responses.Email, responses.Info);
+      // console.log(newInt);
+      allWorkers.push(newInt);
+      writeHTML(responses);
+    }
+
     // console.log(allWorkers);
+
     chooseOption();
     return;
   }
@@ -97,27 +122,43 @@ function promptQuestions(index) {
   });
 }
 
-function writeToDb() {
-  fs.writeFileSync('./db/db.json', JSON.stringify(allWorkers));
-  let db = fs.readFileSync('./db/db.json', 'utf-8');
-}
+// function writeToDb() {
+//   fs.writeFileSync('./db/db.json', JSON.stringify(allWorkers));
+// }
 
 function replaceTemplate() {
-  let db = fs.readFileSync('./db/db.json', 'utf-8');
-  dbArray = JSON.parse(db);
-  // console.log(dbArray);
-  // console.log(typeof dbArray);
-  dbArray.forEach(element => {
-    // console.log(element);
-    parseInfo(element);
+  let template = fs.readFileSync('./public/template.html', 'utf-8');
+  // console.log(template);
+  template = template.replace('{card_info}', newhtml);
 
-  });
+  fs.writeFileSync('./public/result.html', template);
 }
 
-function parseInfo(object) {
-  let empName = object['Name'];
-  let empPos = object['Position'];
-  console.log(empName,empPos);
+function writeHTML(obj){
+  console.log(obj.Name, obj.ID, obj.Email, obj.Info, obj.Position);
+  let newtext = `
+    <div class="card">
+      <div class="name">
+        <h1 class="name_tag">${obj.Name}</h1>
+        <h2 class="position_tag">${obj.Position}</h2>
+      </div>
+      <div class="info_container">
+        <div class="info">
+          <div class="employee_id">ID: ${obj.ID}</div>
+          <div class="employee_email">
+              <a href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=${obj.Email}">Email: ${obj.Email}</a>
+          </div>
+          <div class="employee_extra">${obj.Info}</div>
+        </div>
+      </div>
+        
+    </div>
+  `;
+  
+  newhtml = `
+  ${newhtml}
+  ${newtext}
+  `
 }
 
 //check for empty string and check for esc
