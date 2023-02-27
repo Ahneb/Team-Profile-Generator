@@ -3,7 +3,7 @@
 ## Description
 This is a CLI application catered towards generating a basic html file that displays a worker's information in a neat fashion. The prompt recursively asks for information until the user decides to quit out of the application or decides to generate their html file. The html file is then saved as a results.html page that can be copy and pasted where needed or just opened to the desktop to view.
 
-[Link to Instructional Video Guide]()
+[Link to Instructional Video Guide](https://www.youtube.com/watch?v=TorXgQ5O6lE)
 
 ## Table of Contents
 - [Description](#description)
